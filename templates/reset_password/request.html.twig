@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="base">
+
+    <!-- Page -->
+    <div class="page">
+
+        <!-- Page Header-->
+        <section class="page-title page-title-bg fixed-bg overlay dark-5 padding-top-160 padding-bottom-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="white-text">Register</h2>
+                        <span class="white-text">Welcome on board</span>
+                        <ol class="breadcrumb">
+                            <li><a href="#!">Home</a></li>
+                            <li class="active">Register</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Page Content-->
+        <section class="section-padding gray-bg log-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <h1>Reset your password</h1>
+
+    {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email) }}
+        <div>
+            <small>
+                Enter your email address, and we will send you a
+                link to reset your password.
+            </small>
+        </div>
+
+        <button class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">Send password reset email</button>
+    {{ form_end(requestForm) }}
+</div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+{% endblock %}

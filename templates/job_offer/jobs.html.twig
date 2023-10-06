@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jobs{% endblock %}
+
+{% block body %}
+<script>
+    let elmsHeader = document.getElementsByClassName("dropdown");
+
+    let indexElm = 3;
+    for (let elmHeader of elmsHeader) {
+        elmHeader.classList.remove("active");
+    }
+    elmsHeader[indexElm].classList.add("active");
+</script>
+<div class="base">
+
+    <!-- Page -->
+    <div class="page">
+
+        <!-- Page Header-->
+        <section class="page-title page-title-bg fixed-bg overlay dark-5 padding-top-160 padding-bottom-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="white-text">Our job offers</h2>
+                        <span class="white-text">Search and filter by job category</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Content-->
+        <section id="job-offers" class="section-padding gray-bg">
+            <div class="container">
+                <div class="text-center mb-40">
+                    <h2 class="section-title">We have the perfect job for you</h2>
+                    <p class="section-sub">just like our candidates, we offer quality, serious & reliable job offers.</p>
+                </div>
+                <div class="portfolio-container">
+
+                    <ul class="portfolio-filter brand-filter text-center">
+                        <li class="active waves-effect waves-light" data-group="all">All</li>
+                        {% for job_category in job_categorys %}
+                        <li class=" waves-effect waves-light" data-group="{{job_category.category}}">{{job_category.category}}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="portfolio portfolio-with-title col-2 gutter mt-30">
+
+                        {% for job_offer in job_offers %}
+                        {% if job_offer.activated %}
+                        <div class="portfolio-item" data-groups='["all", "{{ job_offer.jobCategory.category}}"]'>
+                            <div class="portfolio-wrapper">
+                                <div class="card job-card">
+                                    <div class="card-content">
+                                        <span class="title">
+                                            <span class="card-title">{{ job_offer.jobTitle}}</span>
+                                            <span class="ref grey-text">Ref. {{ job_offer.reference}}</span>
+                                        </span>
+                                        <div class="metas mb-20">
+                                            <div class="meta">
+                                                <i class="material-icons">&#xE53E;</i>{{ job_offer.salary}}&euro;
+                                            </div>
+                                            <div class="meta">
+                                                <i class="material-icons">&#xE916;</i>{{ job_offer.closingDate|date('d/m/Y')}}
+                                            </div>
+                                            <div class="meta">
+                                                <i class="material-icons">&#xE55F;</i>{{ job_offer.location}}
+                                            </div>
+                                        </div>
+                                        <p class="truncate-text">{{ job_offer.description}}</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a class="btn btn-md primary border waves-effect waves-dark" href="{{ path('app_job_offer_show', {'id' : job_offer.id} )}}">Details</a>
+                                        {% if not job_offer.applicated and app.user and app.user.candidate.percentage == 100 %}
+                                        <a class="btn btn-md primary waves-effect waves-light" href="{{path('app_application_new', {'joboffer': job_offer.id})}}">Apply</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                        <div class="no-item"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-candidate bg-fixed bg-cover overlay dark-5 padding-top-70 padding-bottom-50">
+            <div class="container">
+                <div class="row">
+                    <div class="valign-wrapper text-center">
+                        <div class="hero-intro valign-cell">
+                            <h2 class="tt-headline clip is-full-width no-margin">
+                                <span>You are </span>
+                                <span class="tt-words-wrapper">
+                                    <b class="is-visible">Commercial</b>
+                                    <b>Creative</b>
+                                    <b>Marketing & PR</b>
+                                    <b>Technology</b>
+                                    <b>Fashion & luxury</b>
+                                    <b>Retail sales</b>
+                                </span>
+                            </h2>
+                            <h3 class="c-secondary mb-30 no-margin">Sign-up and apply for jobs now</h3>
+                            <p class="white-text section-sub">Each one of your skills is seen as precious resource to us, each one of your personality traits are considered as an added on value. Joining us is allowing our recruitment expertise and personal guidance to bring the best out in you by choosing the most suited position.</p>
+
+                            <a href="/register.html" class="btn border secondary waves-effect waves-light mt-40">Join us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}

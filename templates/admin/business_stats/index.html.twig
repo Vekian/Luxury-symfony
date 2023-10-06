@@ -1,0 +1,27 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title 'Business Stats' %}
+{% block main %}
+    <table>
+        <tr>
+            <th>Number of clients</th>
+            <th>| Number of JobOffers</th>
+            <th>| Number of Applications</th>
+            <th>| Number of Candidates</th>
+        </tr>
+        <tr>
+            <td class="text-center">
+                {{ dataClients }}
+            </td>
+            <td class="text-center">
+                {{ dataJobs}}
+            </td>
+            <td class="text-center">
+                {{ dataApplications}}
+            </td>
+            <td class="text-center">
+                {{ dataCandidates}}
+            </td>
+        </tr>
+    </table>
+{% endblock %}
